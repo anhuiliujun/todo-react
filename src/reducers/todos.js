@@ -7,6 +7,7 @@ import {
   CLEAR_COMPLETED,
 
   ADD_TODO_SUCCESS,
+  QUERY_TODO_SUCCESS,
 } from '../constants/ActionTypes'
 
 const initialState = []
@@ -16,6 +17,12 @@ export default function todos(state = initialState, action) {
     case ADD_TODO_SUCCESS:
       return [
         action.todo,
+        ...state
+      ]
+
+    case QUERY_TODO_SUCCESS:
+      return [
+        ...action.todos,
         ...state
       ]
 

@@ -12,12 +12,12 @@ export function addTodo(sources) {
     .map(text => ({
       url: '/api/todos',
       method: 'POST',
-      category: 'create',
+      category: 'createTodo',
       send: {text}
     }))
 
   const addTodoResponse$ = sources.HTTP
-    .select('create')
+    .select('createTodo')
     .flatten()
     .map(res => res.body.data)
     .map(actions.addTodoSuccess)
@@ -28,4 +28,24 @@ export function addTodo(sources) {
   }
 }
 
-export default combineCycles(addTodo);
+export function queryTodo(sources) {
+  const queryTodoRequest$ = sources.ACTION
+    .filter(action => action.type === ActionTypes.QUERY_TODO)
+    .mapTo({
+      url: '/api/todos',
+      category: 'queryTodo'
+    })
+
+  const queryTodoResponse$ = sources.HTTP
+    .select('queryTodo')
+    .flatten()
+    .map(res => res.body.data)
+    .map(actions.queryTodoSuccess)
+
+  return {
+    HTTP: queryTodoRequest$,
+    ACTION: queryTodoResponse$
+  }
+}
+
+export default combineCycles(addTodo, queryTodo);

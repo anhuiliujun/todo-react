@@ -8,3 +8,5 @@ export const completeAll = () => ({ type: types.COMPLETE_ALL })
 export const clearCompleted = () => ({ type: types.CLEAR_COMPLETED })
 
 export const addTodoSuccess = todo => ({type: types.ADD_TODO_SUCCESS, todo})
+export const queryTodo = () => ({type: types.QUERY_TODO})
+export const queryTodoSuccess = todos => ({type: types.QUERY_TODO_SUCCESS, todos})

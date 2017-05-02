@@ -70,4 +70,26 @@ export function toggleTodo(sources) {
   }
 }
 
-export default combineCycles(addTodo, queryTodo, toggleTodo);
+export function deleteTodo(sources) {
+  const deleteTodoRequest$ = sources.ACTION
+    .filter(action => action.type === ActionTypes.DELETE_TODO)
+    .map(action => action.id)
+    .map(id => ({
+      url: `/api/todos/${id}`,
+      category: 'deleteTodo',
+      method: 'DELETE'
+    }))
+
+  const deleteTodoResponse$ = sources.HTTP
+    .select('deleteTodo')
+    .flatten()
+    .map(res => res.body.data)
+    .map(actions.deleteTodoSuccess)
+
+  return {
+    ACTION: deleteTodoResponse$,
+    HTTP: deleteTodoRequest$
+  }
+}
+
+export default combineCycles(addTodo, queryTodo, toggleTodo, deleteTodo);

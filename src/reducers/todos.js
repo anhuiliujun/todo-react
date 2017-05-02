@@ -9,6 +9,7 @@ import {
   ADD_TODO_SUCCESS,
   QUERY_TODO_SUCCESS,
   COMPLETE_TODO_SUCCESS,
+  DELETE_TODO_SUCCESS
 } from '../constants/ActionTypes'
 
 const initialState = []
@@ -32,7 +33,7 @@ export default function todos(state = initialState, action) {
         todo.id === action.todo.id ? action.todo : todo
       )
 
-    case DELETE_TODO:
+    case DELETE_TODO_SUCCESS:
       return state.filter(todo =>
         todo.id !== action.id
       )

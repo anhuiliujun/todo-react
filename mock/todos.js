@@ -49,7 +49,7 @@ module.exports = {
         setTimeout(function () {
             res.json({
                 status: 1,
-                data: todos
+                data: id
             })
         }, 500)
     },

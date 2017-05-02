@@ -10,6 +10,9 @@
     "react-scripts": "^0.9.5"
   },
   "dependencies": {
+    "@cycle/http": "^13.2.0",
+    "@cycle/run": "^3.1.0",
+    "@cycle/time": "^0.8.0",
     "classnames": "^2.2.5",
     "prop-types": "^15.5.8",
     "react": "^15.5.0",
@@ -17,7 +20,9 @@
     "react-redux": "^5.0.3",
     "react-test-renderer": "^15.5.4",
     "redux": "^3.5.2",
-    "todomvc-app-css": "^2.1.0"
+    "redux-cycles": "^0.4.0",
+    "todomvc-app-css": "^2.1.0",
+    "xstream": "^10.6.0"
   },
   "scripts": {
     "start": "react-scripts start",

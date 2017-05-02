@@ -48,4 +48,26 @@ export function queryTodo(sources) {
   }
 }
 
-export default combineCycles(addTodo, queryTodo);
+export function toggleTodo(sources) {
+  const toggleTodoRequest$ = sources.ACTION
+    .filter(action => action.type === ActionTypes.COMPLETE_TODO)
+    .map(action => action.id)
+    .map(id => ({
+      url: `/api/todos/${id}/toggle`,
+      category: 'toggleTodo',
+      method: 'PUT'
+    }))
+
+  const toggleTodoResponse$ = sources.HTTP
+    .select('toggleTodo')
+    .flatten()
+    .map(res => res.body.data)
+    .map(actions.completeTodoSuccess)
+
+  return {
+    ACTION: toggleTodoResponse$,
+    HTTP: toggleTodoRequest$
+  }
+}
+
+export default combineCycles(addTodo, queryTodo, toggleTodo);

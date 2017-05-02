@@ -55,11 +55,11 @@ module.exports = {
     },
     'PUT /api/todos/:id/toggle': function (req, res) {
         const id = parseInt(req.params.id, 10);
-        todos = todos.map(todo => todo.id === id ? {id, text, completed: !todo.completed} : todo)
+        todos = todos.map(todo => todo.id === id ? {id, text: todo.text, completed: !todo.completed} : todo)
         setTimeout(function () {
             res.json({
                 status: 1,
-                data: todos
+                data: todos.find(todo => todo.id === id)
             })
         }, 500)
     },

@@ -8,6 +8,7 @@ import {
 
   ADD_TODO_SUCCESS,
   QUERY_TODO_SUCCESS,
+  COMPLETE_TODO_SUCCESS,
 } from '../constants/ActionTypes'
 
 const initialState = []
@@ -26,6 +27,11 @@ export default function todos(state = initialState, action) {
         ...state
       ]
 
+    case COMPLETE_TODO_SUCCESS:
+      return state.map(todo =>
+        todo.id === action.todo.id ? action.todo : todo
+      )
+
     case DELETE_TODO:
       return state.filter(todo =>
         todo.id !== action.id
@@ -35,13 +41,6 @@ export default function todos(state = initialState, action) {
       return state.map(todo =>
         todo.id === action.id ?
           {...todo, text: action.text} :
-          todo
-      )
-
-    case COMPLETE_TODO:
-      return state.map(todo =>
-        todo.id === action.id ?
-          {...todo, completed: !todo.completed} :
           todo
       )
 

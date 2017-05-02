@@ -9,7 +9,8 @@ import {
   ADD_TODO_SUCCESS,
   QUERY_TODO_SUCCESS,
   COMPLETE_TODO_SUCCESS,
-  DELETE_TODO_SUCCESS
+  DELETE_TODO_SUCCESS,
+  EDIT_TODO_SUCCESS,
 } from '../constants/ActionTypes'
 
 const initialState = []
@@ -38,10 +39,10 @@ export default function todos(state = initialState, action) {
         todo.id !== action.id
       )
 
-    case EDIT_TODO:
+    case EDIT_TODO_SUCCESS:
       return state.map(todo =>
-        todo.id === action.id ?
-          {...todo, text: action.text} :
+        todo.id === action.todo.id ?
+          action.todo :
           todo
       )
 

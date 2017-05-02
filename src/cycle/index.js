@@ -92,4 +92,27 @@ export function deleteTodo(sources) {
   }
 }
 
-export default combineCycles(addTodo, queryTodo, toggleTodo, deleteTodo);
+export function editTodo(sources) {
+  const editTodoRequest$ = sources.ACTION
+    .filter(action => action.type === ActionTypes.EDIT_TODO)
+    .map(action => ({id: action.id, text: action.text}))
+    .map(({id, text}) => ({
+      url: `/api/todos/${id}`,
+      send: {text},
+      method: 'PUT',
+      category: 'editTodo'
+    }))
+
+  const editTodoResponse$ = sources.HTTP
+    .select('editTodo')
+    .flatten()
+    .map(res => res.body.data)
+    .map(actions.editTodoSuccess)
+
+  return {
+    ACTION: editTodoResponse$,
+    HTTP: editTodoRequest$
+  }
+}
+
+export default combineCycles(addTodo, queryTodo, toggleTodo, deleteTodo, editTodo);

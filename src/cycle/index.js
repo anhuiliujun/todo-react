@@ -1,5 +1,4 @@
 import {combineCycles} from 'redux-cycles';
-import xs from 'xstream';
 
 import * as ActionTypes from '../constants/ActionTypes';
 import * as actions from '../actions';

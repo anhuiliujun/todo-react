@@ -73,7 +73,7 @@ module.exports = {
             })
         }, 500)
     },
-    'PUT /api/todos/clearCompleted': function (req, res) {
+    'POST /api/todos/clearCompleted': function (req, res) {
         todos = todos.filter(todo => todo.completed === false)
         setTimeout(function () {
             res.json({

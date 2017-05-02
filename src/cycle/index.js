@@ -115,4 +115,25 @@ export function editTodo(sources) {
   }
 }
 
-export default combineCycles(addTodo, queryTodo, toggleTodo, deleteTodo, editTodo);
+export function clearCompleted(sources) {
+  const clearCompletedRequest$ = sources.ACTION
+    .filter(action => action.type === ActionTypes.CLEAR_COMPLETED)
+    .mapTo({
+      url: '/api/todos/clearCompleted',
+      method: 'POST',
+      category: 'clearCompletedTodo'
+    })
+
+  const clearCompletedResponse$ = sources.HTTP
+    .select('clearCompletedTodo')
+    .flatten()
+    .map(res => res.body.data)
+    .map(actions.clearCompletedSuccess)
+
+  return {
+    ACTION: clearCompletedResponse$,
+    HTTP: clearCompletedRequest$
+  }
+}
+
+export default combineCycles(addTodo, queryTodo, toggleTodo, deleteTodo, editTodo, clearCompleted);

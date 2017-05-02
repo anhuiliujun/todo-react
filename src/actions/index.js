@@ -13,3 +13,4 @@ export const queryTodoSuccess = todos => ({type: types.QUERY_TODO_SUCCESS, todos
 export const completeTodoSuccess = todo => ({type: types.COMPLETE_TODO_SUCCESS, todo})
 export const deleteTodoSuccess = id => ({type: types.DELETE_TODO_SUCCESS, id})
 export const editTodoSuccess = todo => ({type: types.EDIT_TODO_SUCCESS, todo})
+export const clearCompletedSuccess = () => ({type: types.CLEAR_COMPLETED_SUCCESS})

@@ -9,7 +9,7 @@ let todos = [
 ]
 
 module.exports = {
-    'GET /todos': function (req, res) {
+    'GET /api/todos': function (req, res) {
         setTimeout(function () {
             res.json({
                 status: 1,
@@ -17,7 +17,8 @@ module.exports = {
             });
         }, 500)
     },
-    'POST /todos': function (req, res) {
+    'POST /api/todos': function (req, res) {
+      console.log(req, 'body')
         const todo = {
             id: todos.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
             completed: false,
@@ -31,7 +32,7 @@ module.exports = {
             })
         }, 500)
     },
-    'PUT /todos/:id': function (req, res) {
+    'PUT /api/todos/:id': function (req, res) {
         const text = JSON.parse(req.body).text;
         const id = parseInt(req.params.id, 10);
         todos = todos.map(todo => todo.id === id ? { id, text, completed: todo.completed } : todo)
@@ -42,7 +43,7 @@ module.exports = {
             })
         }, 500)
     },
-    'DELETE /todos/:id': function (req, res) {
+    'DELETE /api/todos/:id': function (req, res) {
         const id = parseInt(req.params.id, 10)
         todos = todos.filter(todo => todo.id !== id)
         setTimeout(function () {
@@ -52,7 +53,7 @@ module.exports = {
             })
         }, 500)
     },
-    'PUT /todos/:id/toggle': function (req, res) {
+    'PUT /api/todos/:id/toggle': function (req, res) {
         const id = parseInt(req.params.id, 10);
         todos = todos.map(todo => todo.id === id ? {id, text, completed: !todo.completed} : todo)
         setTimeout(function () {
@@ -62,7 +63,7 @@ module.exports = {
             })
         }, 500)
     },
-    'PUT /todos/completeAll': function (req, res) {
+    'PUT /api/todos/completeAll': function (req, res) {
         const areAllMarked = todos.every(todo => todo.completed)
         todos = todos.map(todo => ({id: todo.id, text: todo.text, completed: !areAllMarked}))
         setTimeout(function () {
@@ -72,7 +73,7 @@ module.exports = {
             })
         }, 500)
     },
-    'PUT /todos/clearCompleted': function (req, res) {
+    'PUT /api/todos/clearCompleted': function (req, res) {
         todos = todos.filter(todo => todo.completed === false)
         setTimeout(function () {
             res.json({

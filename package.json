@@ -30,5 +30,6 @@
     "eject": "react-scripts eject",
     "test": "react-scripts test",
     "start:server": "dora --plugins proxy"
-  }
+  },
+  "proxy": "http://localhost:8989"
 }

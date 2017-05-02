@@ -63,7 +63,7 @@ module.exports = {
             })
         }, 500)
     },
-    'PUT /api/todos/completeAll': function (req, res) {
+    'POST /api/todos/toggleAll': function (req, res) {
         const areAllMarked = todos.every(todo => todo.completed)
         todos = todos.map(todo => ({id: todo.id, text: todo.text, completed: !areAllMarked}))
         setTimeout(function () {

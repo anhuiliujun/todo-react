@@ -1,12 +1,11 @@
 import {
-  COMPLETE_ALL,
-
   ADD_TODO_SUCCESS,
   QUERY_TODO_SUCCESS,
   COMPLETE_TODO_SUCCESS,
   DELETE_TODO_SUCCESS,
   EDIT_TODO_SUCCESS,
   CLEAR_COMPLETED_SUCCESS,
+  TOGGLE_ALL_SUCCESS
 } from '../constants/ActionTypes'
 
 const initialState = []
@@ -42,7 +41,7 @@ export default function todos(state = initialState, action) {
           todo
       )
 
-    case COMPLETE_ALL:
+    case TOGGLE_ALL_SUCCESS:
       const areAllMarked = state.every(todo => todo.completed)
       return state.map(todo => ({
         ...todo,

@@ -22,7 +22,7 @@ const setup = propOverrides => {
       editTodo: jest.fn(),
       deleteTodo: jest.fn(),
       completeTodo: jest.fn(),
-      completeAll: jest.fn(),
+      toggleAll: jest.fn(),
       clearCompleted: jest.fn()
     }
   }, propOverrides)
@@ -68,11 +68,11 @@ describe('components', () => {
         expect(toggle.props.checked).toBe(true)
       })
 
-      it('should call completeAll on change', () => {
+      it('should call toggleAll on change', () => {
         const { output, props } = setup()
         const [ toggle ] = output.props.children
         toggle.props.onChange({})
-        expect(props.actions.completeAll).toBeCalled()
+        expect(props.actions.toggleAll).toBeCalled()
       })
     })
 

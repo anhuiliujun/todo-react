@@ -136,4 +136,25 @@ export function clearCompleted(sources) {
   }
 }
 
-export default combineCycles(addTodo, queryTodo, toggleTodo, deleteTodo, editTodo, clearCompleted);
+export function toggleAll(sources) {
+  const toggleAllRequest$ = sources.ACTION
+    .filter(action => action.type === ActionTypes.TOGGLE_ALL)
+    .mapTo({
+      url: '/api/todos/toggleAll',
+      method: 'POST',
+      category: 'toggleAll'
+    })
+
+  const toggleAllResponse$ = sources.HTTP
+    .select('toggleAll')
+    .flatten()
+    .map(res => res.body.data)
+    .map(actions.toggleAllSuccess)
+
+  return {
+    ACTION: toggleAllResponse$,
+    HTTP: toggleAllRequest$
+  }
+}
+
+export default combineCycles(addTodo, queryTodo, toggleTodo, deleteTodo, editTodo, clearCompleted, toggleAll);

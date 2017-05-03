@@ -1,4 +1,5 @@
 import {combineCycles} from 'redux-cycles';
+import xs from 'xstream';
 
 import * as ActionTypes from '../constants/ActionTypes';
 import * as actions from '../actions';
@@ -160,6 +161,13 @@ export function searchUsers(sources) {
   const request$ = sources.ACTION
     .filter(action => action.type === ActionTypes.SEARCH_USERS)
     .map(action => action.query)
+    .filter(q => !!q)
+    .map(q =>
+      xs.periodic(800)
+        .take(1)
+        .mapTo(q)
+    )
+    .flatten()
     .map(q => ({
       url: `https://api.github.com/search/users?q=${q}`,
       category: 'query'

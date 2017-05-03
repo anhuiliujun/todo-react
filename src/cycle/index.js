@@ -156,4 +156,25 @@ export function toggleAll(sources) {
   }
 }
 
-export default combineCycles(addTodo, queryTodo, toggleTodo, deleteTodo, editTodo, clearCompleted, toggleAll);
+export function searchUsers(sources) {
+  const request$ = sources.ACTION
+    .filter(action => action.type === ActionTypes.SEARCH_USERS)
+    .map(action => action.query)
+    .map(q => ({
+      url: `https://api.github.com/search/users?q=${q}`,
+      category: 'query'
+    }))
+
+  const response$ = sources.HTTP
+    .select('query')
+    .flatten()
+    .map(res => res.body.items)
+    .map(actions.searchUserSuccess)
+
+  return {
+    ACTION: response$,
+    HTTP: request$
+  }
+}
+
+export default combineCycles(addTodo, queryTodo, toggleTodo, deleteTodo, editTodo, clearCompleted, toggleAll, searchUsers);

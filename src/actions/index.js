@@ -15,3 +15,6 @@ export const deleteTodoSuccess = id => ({type: types.DELETE_TODO_SUCCESS, id})
 export const editTodoSuccess = todo => ({type: types.EDIT_TODO_SUCCESS, todo})
 export const toggleAllSuccess = () => ({type: types.TOGGLE_ALL_SUCCESS})
 export const clearCompletedSuccess = () => ({type: types.CLEAR_COMPLETED_SUCCESS})
+
+export const searchUsers = query => ({type: types.SEARCH_USERS, query})
+export const searchUserSuccess = users => ({type: types.SEARCH_USERS_SUCCESS, users})
